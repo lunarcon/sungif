@@ -1,7 +1,7 @@
 import requests, datetime, io, PIL.Image, imageio, sys
 
 URL_FORMATS = {'sdo_blank': 'https://www.spaceweather.com/images%Y/%d%b%y/coronalhole_sdo_blank.jpg',
-               'hmi': 'https://www.spaceweather.com/images%Y/%d%b%y/hmi4096_blank.jpg',
+               'coronalhole': 'https://www.spaceweather.com/images%Y/%d%b%y/hmi4096_blank.jpg',
                'sdo_304nm': 'https://suntoday.lmsal.com/sdomedia/SunInTime/%Y/%m/%d/l0304.jpg',
                }
 
@@ -30,12 +30,12 @@ def main():
     date = datetime.date(2024, 1, 1)
     end_date = datetime.date.today()
     images = []
-    frmt = 'hmi'
+    frmt = 'sdo_blank'
 
     if len(sys.argv) > 1:
         if sys.argv[1] == 'help':
-            print("Usage: python sungif.py [format] [start_date] [end_date]")
-            print("  format: ", ' | '.join(list(URL_FORMATS.keys())))
+            print("Usage: python sungif.py [source] [start_date] [end_date]")
+            print("  source: ", ' | '.join(list(URL_FORMATS.keys())))
             print("  start_date: date in format YYYY-MM-DD (optional, defaults to 2024-01-01)")
             print("  end_date: date in format YYYY-MM-DD (optional, defaults to today)")
             return
@@ -45,7 +45,7 @@ def main():
     if len(sys.argv) > 3:
         end_date = datetime.datetime.strptime(sys.argv[3], '%Y-%m-%d').date()
     if frmt not in URL_FORMATS:
-        print(f"Invalid format {frmt}, must be one of:\n{', '.join(list(URL_FORMATS.keys()))}")
+        print(f"Invalid source {frmt}, must be one of:\n{', '.join(list(URL_FORMATS.keys()))}")
         return
     
     for dt in datespan(date, end_date):
@@ -54,7 +54,7 @@ def main():
             image = create_image(dt, image_data)
             images.append(image)
     
-    print(f"Saving {len(images)} images to {frmt}.gif")
+    print('sungif_{}_{}_{}.gif'.format(frmt, date, end_date))
     imageio.mimsave('sungif_{}_{}_{}.gif'.format(frmt, date, end_date), images)
 
 if __name__ == '__main__':
