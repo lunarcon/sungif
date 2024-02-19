@@ -6,7 +6,7 @@ URL_FORMATS = {'sdo_blank': 'https://www.spaceweather.com/images%Y/%d%b%y/corona
                }
 
 def get_image(date, src):
-    url = date.strftime(src)
+    url = date.strftime(src).lower()
     print("getting image for", date, url, end='... ')
     response = requests.get(url)
     if response.status_code == 200:
