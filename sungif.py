@@ -47,7 +47,7 @@ def main():
             print("  start_date: date in format YYYY-MM-DD (optional, defaults to 2024-01-01)")
             print("  end_date: date in format YYYY-MM-DD (optional, defaults to today)")
             print("  resolution: 'l' or 'f' (optional, defaults to 'l', l = 1K, f = 4K)")
-            print("  wavelength/combination/src: (optional, defaults to '0304')\n\t-"+'\n\t-'.join(WAVS))
+            print("  wavelength/combination/src: (optional, defaults to '0304')\n\t-\t"+'\n\t-\t'.join(WAVS))
             return
         try:
             date = datetime.datetime.strptime(sys.argv[1], '%Y-%m-%d').date()
