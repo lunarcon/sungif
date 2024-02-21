@@ -33,3 +33,5 @@ If you set the two dates to be the same, a single image is downloaded and saved 
 ## Upcoming
 - Ability to save as image sequence
 - Ability to save as video (mp4, etc)
+- fix option handling
+- ability to specify custom resolution, image of closest resolution is downloaded and is rescaled.
